@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>自定义微信分享卡片生成 - 里客云科技</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+  <link rel="icon" href="xicon.jpg" type="image/x-icon" /> 
+  <style type="text/css">
+    .modal .modal-dialog .modal-content .modal-body .btn{
+      position: relative;
+      margin:20px auto;
+      display: block;
+    }
+
+    .modal .modal-dialog .modal-content .modal-body .file_btn{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+
+    /*适应PC端 宽度大于1000px*/
+    @media screen and (min-width: 1000px) {
+      .container{
+        width: 30%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<br/>
+<br/>
+<br/>
+<div class="container">
+  <h1 style="color: #07c160;">自定义微信分享卡片生成</h1>
+  <br/>
+  <form role="form" action="##" onsubmit="return false" method="post" id="creat">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">标题</span>
+      </div>
+      <input type="text" name="title" class="form-control" placeholder="请输入标题">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">摘要</span>
+      </div>
+      <input type="text" name="description" class="form-control" placeholder="请输入摘要">
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" name="img" id="imgurl" class="form-control" placeholder="请上传图片或粘贴网络图片地址">
+      <div class="input-group-append">
+        <span class="input-group-text" data-toggle="modal" data-target="#uploadimg" style="cursor: pointer;">上传图片</span>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text">链接</span>
+      </div>
+      <input type="text" name="redirect_url" class="form-control" placeholder="请粘贴需跳转的链接">
+    </div>
+    <button type="button" class="btn btn-dark" onclick="creat()" style="background: #07c160;border:none;width: 100%;height: 35px;">立即创建</button>
+  </form>
+
+  <!-- 信息提示框 -->
+  <br/>
+  <div class="Result" style="display: none;"></div>
+  <br/>
+  <div class="url_qrcode" style="display: none;"></div>
+</div>
+
+
+<!-- 上传图片 -->
+<div class="modal fade" id="uploadimg">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+ 
+      <!-- 模态框头部 -->
+      <div class="modal-header">
+        <h4 class="modal-title">上传图片</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+ 
+      <!-- 模态框主体 -->
+      <div class="qunbody modal-body">
+        <form id="upload_fengmian" enctype="multipart/form-data">
+          <button type="button" class="btn btn-dark">
+            <input type="file" id="select_img" class="file_btn" name="file"/>
+            选择图片
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AJAX创建 -->
+<script>
+function creat(){
+    $.ajax({
+        type: "POST",
+        url: "creat-card.php",
+        data: $('#creat').serialize(),
+        success:function(data){
+			     if (data.code == 200) {
+            // 创建成功
+            $(".container .Result").css("display","block");
+            $(".container .Result").html("<div class=\"alert alert-success\">"+data.msg+"</div>")
+            // 生成URL和二维码
+            $(".container .url_qrcode").css("display","block");
+            $(".container .url_qrcode").html("<div class=\"card\"><div class=\"card-header\">链接："+data.link+"</div><div class=\"card-body\"><img src='./qrcode.php?content="+data.link+"' style='width:260px;margin:10px auto;display:block;'/></div></div>");
+           }else{
+            // 创建失败
+            $(".container .url_qrcode").css("display","none");
+            $(".container .Result").css("display","block");
+            $(".container .Result").html("<div class=\"alert alert-warning\">"+data.msg+"</div>")
+           }
+        },
+        error : function() {
+          	// 创建失败
+           $(".container .url_qrcode").css("display","none"); 
+            $(".container .Result").css("display","block");
+            $(".container .Result").html("<div class=\"alert alert-danger\">"+data.msg+"</div>")
+        }
+    });
+}
+
+// 上传微信群二维码
+var upload_lunxun = setInterval("uploadimg()",2000);
+  function uploadimg() {
+  var img_filename = $("#select_img").val();
+  if (img_filename) {
+    clearInterval(upload_lunxun);
+    var imgform = new FormData(document.getElementById("upload_fengmian"));
+    $.ajax({
+      url:"upload.php",
+      type:"post",
+      data:imgform,
+      cache: false,
+      processData: false,
+      contentType: false,
+      success:function(data){
+        if (data.res == "400") {
+          $("#imgurl").val(data.path);
+          $(".modal .modal-dialog .modal-content .qunbody").html("<h3>上传成功</h3>");
+        }
+      },
+      error:function(data){
+        alert("上传失败");
+      },
+      beforeSend:function(data){
+        $(".modal .modal-dialog .modal-content .qunbody").html("<h3>正在上传中...</h3>");
+      }
+    })
+  }else{
+    // console.log("等待上传");
+  }
+}
+</script>
+</body>
+</html>

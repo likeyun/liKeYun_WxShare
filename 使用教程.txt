@@ -1,0 +1,13 @@
+运行环境：php5.6 - 7.0
+
+1、导入数据库wxzdy_share.sql
+2、打开db_config.php，修改里面的配置信息（数据库相关配置，公众号相关配置）
+3、访问creat.html即可开始创建
+
+注意：系统会自动生成access_token.json、jsapi_ticket.json这两个文件，请不要删除，服务器需要有777权限。
+
+此程序需要配合认证订阅号、认证服务号使用，没有的话就使用测试号使用。
+
+测试号申请地址：https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index
+
+无论是认证号还是测试号都要绑定JS接口安全域名，域名就是你安装本套程序的域名。
