@@ -1,9 +1,9 @@
 # WxShare
 创建微信分享给好友，分享到朋友圈的卡片，自定义分享，微信jssdk分享，微信卡片分享，微信分享带描述文字、带图片、带标题的卡片。
 
-<img src="https://s.pc.qq.com/tousu/img/20210804/1945465_1628006608.jpg" /><br/>
+<img src="https://p.pstatp.com/origin/pgc-image/3baf9db4e1954a3496e33aa8567f71f7" width="400" /><br/>
 <img src="https://s.pc.qq.com/tousu/img/20210804/9391668_1628006629.jpg" width="400" /><br/>
-<img src="https://p.pstatp.com/origin/pgc-image/1255127dd06143e89ed85d4432ee7a99" width="300" /><br/>
+<img src="https://p.pstatp.com/origin/pgc-image/1255127dd06143e89ed85d4432ee7a99" width="400" /><br/>
 
 # 注意
 如果使用测试号进行搭建，你还需要关注测试号的公众号，在测试号后台，有一个二维码，需要扫码关注，然后用扫码关注的那个微信进行访问分享页才能有效！
