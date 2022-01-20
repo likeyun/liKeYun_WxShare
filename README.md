@@ -29,4 +29,4 @@
 # 交流群
 
 有问题可以加入交流群解决
-http://pic.iask.cn/fimg/3415717055.jpg
+http://inews.gtimg.com/newsapp_bt/0/14446103724/641
