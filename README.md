@@ -1,4 +1,4 @@
-# WxShare
+# WxShare自定义微信分享卡片2.0
 创建微信分享给好友，分享到朋友圈的卡片，自定义分享，微信jssdk分享，微信卡片分享，微信分享带描述文字、带图片、带标题的卡片。
 
 <img src="https://p.pstatp.com/origin/pgc-image/3baf9db4e1954a3496e33aa8567f71f7" width="400" /><br/>
