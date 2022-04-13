@@ -4,166 +4,483 @@
   <title>自定义微信分享卡片生成 - 里客云科技</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
-  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
-  <link rel="icon" href="xicon.jpg" type="image/x-icon" /> 
+  <link rel="icon" href="20220413135342.png" type="image/x-icon" /> 
   <style type="text/css">
-    .modal .modal-dialog .modal-content .modal-body .btn{
-      position: relative;
-      margin:20px auto;
-      display: block;
+    *{
+        padding:0;
+        margin:0;
     }
-
-    .modal .modal-dialog .modal-content .modal-body .file_btn{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
+    body{
+        background: #f5f6f7;
     }
-
     /*适应PC端 宽度大于1000px*/
     @media screen and (min-width: 1000px) {
-      .container{
-        width: 30%;
-      }
+        .container .bigtitle{
+            text-align: center;
+            margin:20px auto 50px;
+            font-size: 30px;
+            font-weight: 500;
+        }
+        .container{
+            width: 1000px;
+            margin: 80px auto 0;
+        }
+        .container .left{
+            width: 60%;
+            float: left;
+        }
+        .container .Result{
+            margin-top:20px;
+            width: 100%;
+        }
+        .container .left .form-input{
+            width: 100%;
+            height: 45px;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            text-indent: 15px;
+            border:none;
+            background: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+        }
+        .container .left .form-input-imgurl{
+            width: 80%;
+            height: 45px;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            text-indent: 15px;
+            border:none;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+            float: left;
+        }
+        .container .left .uploadfile{
+            width: 18%;
+            height: 45px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            float: right;
+            color: #666;
+            font-size: 15px;
+            line-height: 45px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+        .container .left .file{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .container .left .form-btn-creat{
+            background: #07c160;
+            border:none;
+            width: 100px;
+            height: 40px;
+            outline: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin:10px auto;
+            display: block;
+            font-weight: bold;
+        }
+        .container .alert-warning{
+            /*width: 100%;*/
+            padding:15px 20px;
+            border-radius: 5px;
+            background: rgba(250,81,81,0.1);
+            color: rgb(250,81,81);
+            font-weight: bold;
+        }
+        .container .alert-success{
+            /*width: 100%;*/
+            padding:15px 20px;
+            border-radius: 5px;
+            background: rgba(7,193,96,0.1);
+            color: rgb(7,193,96);
+            font-weight: bold;
+        }
+        .container .right{
+            width: 36%;
+            float: right;
+            background: url('./phone.png')no-repeat;
+            height: 700px;
+            border-radius: 20px;
+        }
+        .container .sharecard{
+            width: 155px;
+            height: 45px;
+            /*background: #ccc;*/
+            margin-top: 125px;
+            margin-left: 100px;
+        }
+        .container .sharecard .sharetext{
+            width: 155px;
+            height: 45px;
+        }
+        .container .sharecard .sharetext .title{
+            width: 100%;
+            font-size: 14px;
+            color: #333;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            word-break: break-all;
+        }
+        .container .sharecard .desc-cover{
+            width: 155px;
+            background: #ccc;
+        }
+        .container .sharecard .desc-cover .desc{
+            width: 107px;
+            float: left;
+            font-size: 11px;
+            color: #999;
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .container .sharecard .desc-cover .cover{
+            width: 35px;
+            height: 35px;
+            float: right;
+        }
+        .container .sharecard .desc-cover img{
+            width: 35px;
+            height: 35px;
+        }
+        .container .left .url_qrcode{
+            /*width: 100%;*/
+            padding:20px 30px;
+            background: #fff;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .container .left .url_qrcode .card-header{
+            color: #333;
+            font-size: 15px;
+        }
+    }
+    /*适应手机*/
+    @media screen and (max-width: 639px) {
+        .container .bigtitle{
+            text-align: center;
+            margin:20px auto 50px;
+            font-size: 30px;
+            font-weight: 500;
+        }
+        .container{
+            width: 90%;
+            margin: 80px auto 0;
+        }
+        .container .left{
+            width: 100%;
+            float: left;
+        }
+        .container .Result{
+            margin-top:20px;
+            width: 100%;
+        }
+        .container .left .form-input{
+            width: 100%;
+            height: 45px;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            text-indent: 15px;
+            border:none;
+            background: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+        }
+        .container .left .form-input-imgurl{
+            width: 80%;
+            height: 45px;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            text-indent: 15px;
+            border:none;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+            float: left;
+        }
+        .container .left .uploadfile{
+            width: 18%;
+            height: 45px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            float: right;
+            color: #666;
+            font-size: 15px;
+            line-height: 45px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+        .container .left .file{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .container .left .form-btn-creat{
+            background: #07c160;
+            border:none;
+            width: 100px;
+            height: 40px;
+            outline: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin:10px auto;
+            display: block;
+            font-weight: bold;
+        }
+        .container .alert-warning{
+            /*width: 100%;*/
+            padding:15px 20px;
+            border-radius: 5px;
+            background: rgba(250,81,81,0.1);
+            color: rgb(250,81,81);
+            font-weight: bold;
+        }
+        .container .alert-success{
+            /*width: 100%;*/
+            padding:15px 20px;
+            border-radius: 5px;
+            background: rgba(7,193,96,0.1);
+            color: rgb(7,193,96);
+            font-weight: bold;
+        }
+        .container .right{
+            display: none;
+            width: 36%;
+            float: right;
+            background: url('./phone.png')no-repeat;
+            height: 700px;
+            border-radius: 20px;
+        }
+        .container .sharecard{
+            width: 155px;
+            height: 45px;
+            /*background: #ccc;*/
+            margin-top: 125px;
+            margin-left: 100px;
+        }
+        .container .sharecard .sharetext{
+            width: 155px;
+            height: 45px;
+        }
+        .container .sharecard .sharetext .title{
+            width: 100%;
+            font-size: 14px;
+            color: #333;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            word-break: break-all;
+        }
+        .container .sharecard .desc-cover{
+            width: 155px;
+            background: #ccc;
+        }
+        .container .sharecard .desc-cover .desc{
+            width: 107px;
+            float: left;
+            font-size: 11px;
+            color: #999;
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .container .sharecard .desc-cover .cover{
+            width: 35px;
+            height: 35px;
+            float: right;
+        }
+        .container .sharecard .desc-cover img{
+            width: 35px;
+            height: 35px;
+        }
+        .container .left .url_qrcode{
+            /*width: 100%;*/
+            padding:20px 30px;
+            background: #fff;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .container .left .url_qrcode .card-header{
+            color: #333;
+            font-size: 15px;
+        }
     }
   </style>
 </head>
 <body>
-
-<br/>
-<br/>
-<br/>
+    
+<!-- 主体 -->
 <div class="container">
-  <h1 style="color: #07c160;">自定义微信分享卡片生成</h1>
-  <br/>
-  <form role="form" action="##" onsubmit="return false" method="post" id="creat">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text">标题</span>
-      </div>
-      <input type="text" name="title" class="form-control" placeholder="请输入标题">
-    </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text">摘要</span>
-      </div>
-      <input type="text" name="description" class="form-control" placeholder="请输入摘要">
-    </div>
-    <div class="input-group mb-3">
-      <input type="text" name="img" id="imgurl" class="form-control" placeholder="请上传图片或粘贴网络图片地址">
-      <div class="input-group-append">
-        <span class="input-group-text" data-toggle="modal" data-target="#uploadimg" style="cursor: pointer;">上传图片</span>
-      </div>
-    </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text">链接</span>
-      </div>
-      <input type="text" name="redirect_url" class="form-control" placeholder="请粘贴需跳转的链接">
-    </div>
-    <button type="button" class="btn btn-dark" onclick="creat()" style="background: #07c160;border:none;width: 100%;height: 35px;">立即创建</button>
-  </form>
-
-  <!-- 信息提示框 -->
-  <br/>
-  <div class="Result" style="display: none;"></div>
-  <br/>
-  <div class="url_qrcode" style="display: none;"></div>
-</div>
-
-
-<!-- 上传图片 -->
-<div class="modal fade" id="uploadimg">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
- 
-      <!-- 模态框头部 -->
-      <div class="modal-header">
-        <h4 class="modal-title">上传图片</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
- 
-      <!-- 模态框主体 -->
-      <div class="qunbody modal-body">
-        <form id="upload_fengmian" enctype="multipart/form-data">
-          <button type="button" class="btn btn-dark">
-            <input type="file" id="select_img" class="file_btn" name="file"/>
-            选择图片
-          </button>
+    <p class="bigtitle">微信自定义分享卡片</p>
+    <!-- 左侧表单区域 -->
+    <div class="left">
+        <form role="form" onsubmit="return false" id="creat">
+            <input type="text" name="title" id="title" class="form-input" placeholder="请输入标题">
+            <input type="text" name="description" id="desc" class="form-input" placeholder="请输入摘要">
+            <div class="imgupload">
+                <input type="text" name="img" id="imgurl" class="form-input-imgurl" placeholder="请上传图片或粘贴网络图片地址">
+                <div class="uploadfile">
+                    <span class="uptext">上传图片</span>
+                    <input type="file" name="file" id="imgselect" class="file" />
+                </div>
+            </div>
+            <input type="text" name="redirect_url" class="form-input" placeholder="请粘贴需跳转的链接">
+            <button type="button" class="form-btn-creat" onclick="creat()">立即创建</button>
         </form>
-      </div>
+        <!-- 信息提示框 -->
+        <div class="Result" style="display: none;"></div>
+        <!-- 分享链接、分享二维码 -->
+        <div class="url_qrcode" style="display: none;"></div>
     </div>
-  </div>
+    <!-- 右侧预览效果 -->
+    <div class="right">
+        <div class="sharecard">
+            <div class="sharetext">
+                <div class="title" id="card-title"></div>
+                <div class="desc-cover">
+                    <div class="desc" id="card-desc"></div>
+                    <div class="cover">
+                        <img src="./cover.png" id="card-imgurl"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- AJAX创建 -->
 <script>
+
+// 隐藏信息提示框
+function closeTips(){
+    $(".container .Result").css("display","none");
+}
+
+// 预览标题
+$('#title').on('input propertychange', function() {  
+    $('#card-title').html($('#title').val());
+});
+
+// 预览描述
+$('#desc').on('input propertychange', function() {  
+    $('#card-desc').html($('#desc').val());
+});
+
+// 预览封面图
+$('#imgurl').on('input propertychange', function() {  
+    $("#card-imgurl").attr("src", $('#imgurl').val());
+});
+
+// 创建
 function creat(){
     $.ajax({
         type: "POST",
         url: "creat-card.php",
         data: $('#creat').serialize(),
         success:function(data){
-			     if (data.code == 200) {
-            // 创建成功
-            $(".container .Result").css("display","block");
-            $(".container .Result").html("<div class=\"alert alert-success\">"+data.msg+"</div>")
-            // 生成URL和二维码
-            $(".container .url_qrcode").css("display","block");
-            $(".container .url_qrcode").html("<div class=\"card\"><div class=\"card-header\">链接："+data.link+"</div><div class=\"card-body\"><img src='./qrcode.php?content="+data.link+"' style='width:260px;margin:10px auto;display:block;'/></div></div>");
+		    if (data.code == 200) {
+                // 创建成功
+                $(".container .Result").css("display","block");
+                $(".container .Result").html("<div class=\"alert alert-success\">"+data.msg+"</div>")
+                // 生成URL和二维码
+                $(".container .url_qrcode").css("display","block");
+                $(".container .url_qrcode").html("<div class=\"card\"><div class=\"card-header\">链接："+data.link+"</div><div class=\"card-body\"><img src='./qrcode.php?content="+data.link+"' style='width:260px;margin:10px auto;display:block;'/></div></div>");
            }else{
-            // 创建失败
-            $(".container .url_qrcode").css("display","none");
-            $(".container .Result").css("display","block");
-            $(".container .Result").html("<div class=\"alert alert-warning\">"+data.msg+"</div>")
+                // 创建失败
+                $(".container .url_qrcode").css("display","none");
+                $(".container .Result").css("display","block");
+                $(".container .Result").html("<div class=\"alert alert-warning\">"+data.msg+"</div>")
            }
         },
         error : function() {
           	// 创建失败
-           $(".container .url_qrcode").css("display","none"); 
+            $(".container .url_qrcode").css("display","none"); 
             $(".container .Result").css("display","block");
-            $(".container .Result").html("<div class=\"alert alert-danger\">"+data.msg+"</div>")
+            $(".container .Result").html("<div class=\"alert alert-warning\">"+data.msg+"</div>")
         }
     });
+    setTimeout('closeTips()', 2000);
 }
 
-// 上传微信群二维码
-var upload_lunxun = setInterval("uploadimg()",2000);
-  function uploadimg() {
-  var img_filename = $("#select_img").val();
-  if (img_filename) {
-    clearInterval(upload_lunxun);
-    var imgform = new FormData(document.getElementById("upload_fengmian"));
-    $.ajax({
-      url:"upload.php",
-      type:"post",
-      data:imgform,
-      cache: false,
-      processData: false,
-      contentType: false,
-      success:function(data){
-        if (data.res == "400") {
-          $("#imgurl").val(data.path);
-          $(".modal .modal-dialog .modal-content .qunbody").html("<h3>上传成功</h3>");
-        }
-      },
-      error:function(data){
-        alert("上传失败");
-      },
-      beforeSend:function(data){
-        $(".modal .modal-dialog .modal-content .qunbody").html("<h3>正在上传中...</h3>");
-      }
-    })
-  }else{
-    // console.log("等待上传");
-  }
-}
+// 上传图片
+$("#imgselect").change(function(e){
+	// 获取点击的控件
+	var files = e.target.files;
+	// 判断是否已经选择了图片
+	if(files.length>0){
+		// 获取文件名
+		var fileName = files[0].name;
+		// 获取表单数据
+		var image = new FormData(document.getElementById("creat"));
+		// AJAX上传图片
+		$.ajax({
+			url:"upload.php",
+			type:"post",
+			data:image,
+			cache: false,
+			processData: false,
+			contentType: false,
+			success:function(data){
+				if (data.res == "400") {
+					$("#imgurl").val(data.path);
+					$(".container .uploadfile .uptext").text('已上传')
+					$(".container .Result").css("display","block");
+                    $(".container .Result").html("<div class=\"alert alert-success\">上传图片成功</div>")
+                    $("#card-imgurl").attr("src", data.path);
+				}
+				// 上传成功后，清空选择的文件
+				$("#imgselect").val("");
+			},
+			error:function(data){
+				$(".container .url_qrcode").css("display","none"); 
+                $(".container .Result").css("display","block");
+                $(".container .Result").html("<div class=\"alert alert-warning\">上传失败，请检查服务器通讯状态和上传文件权限。</div>")
+			}
+		})
+	}
+	setTimeout('closeTips()', 2000);
+})
+
 </script>
 </body>
 </html>
