@@ -18,6 +18,10 @@
 4、如果你是使用测试号，请关注测试号，仅限关注测试号的微信使用才有效果。<br/>
 5、访问creat.html即可开始创建<br/><br/>
 
+如图，测试号配置安全域名，域名就是你当前用于搭建的域名，直接填域名，无需填https或http，结尾无需加斜杠。例如你的域名是www.qq.com，那就直接填www.qq.com<br/>
+![微信截图_20220415145107.png](https://ucc.alicdn.com/pic/developer-ecology/265b8e94cea84ae7bd4a02c6cb8569da.png)
+
+
 注意：系统会自动生成access_token.json、jsapi_ticket.json这两个文件，请不要删除，服务器需要有777权限。<br/>
 
 此程序需要配合认证订阅号、认证服务号使用，没有的话就使用测试号使用。<br/>
