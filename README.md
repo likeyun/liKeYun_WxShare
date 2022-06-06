@@ -35,6 +35,13 @@
 还有重要的一点：如果使用测试号进行搭建，你还需要关注测试号的公众号，在测试号后台，有一个二维码，需要扫码关注，然后用扫码关注的那个微信进行访问分享页才能有效！
 ---
 
+# 调试
+
+如果一直不生效，没反应，建议大家通过微信web开发者工具进行调试。工具下载地址：https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
+
+<img src="https://github.com/likeyun/TANKING/blob/master/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20220606114215.png" /><br/>
+<img src="https://github.com/likeyun/TANKING/blob/master/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20220606113806.png" />
+
 # 交流群
 
 有问题可以加入交流群解决
