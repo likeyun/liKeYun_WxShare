@@ -3,6 +3,10 @@
 
 ![微信截图_20220415142419.png](https://ucc.alicdn.com/pic/developer-ecology/88cc02609a3d4c7c8684d85811d03d1d.png)
 
+# 停止维护通知
+微信分享卡片独立版本已停止维护，不再维护此版本。我将会在我的另一个项目将分享卡片整合进去。有兴趣的开发者请移步至我的另一个项目【引流宝】https://github.com/likeyun/liKeYun_Huoma
+
+
 # 更新日志（2022-04-15）
 1、优化UI<br/>
 2、新增预览效果<br/>
